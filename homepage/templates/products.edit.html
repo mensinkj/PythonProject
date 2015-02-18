@@ -1,0 +1,30 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Edit Product</%block>
+
+<%block name="admin_bar">
+<div id="admin_bar">
+	<ul>
+		<li><a href="/users">Users</a></li>
+		<li><a href="/products">Products</a></li>
+		<li><a href="/items">Items</a></li>
+		<li><a href="/organizations">Organizations</a></li>
+		<li><a href="/events">Events</a></li>
+		<li><a href="/areas">Areas</a></li>
+	</ul>
+</div> 
+</%block>
+
+<%block name="content">
+	
+	<h3>Edit Item:</h3>
+	
+	<form method="POST">
+		<table>
+			${ form }
+		</table>
+		<button class="btn btn-success" type="submit">Save</button>
+		<a class="btn btn-danger" href="/homepage/products.delete/${ product.photographablething_ptr_id }">Delete Item</a>
+		<a class="btn btn-default" href="/homepage/products/">Cancel</a>
+	</form>	
+</%block>

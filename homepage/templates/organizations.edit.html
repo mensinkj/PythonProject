@@ -1,0 +1,19 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Edit Organization</%block>
+
+<%block name="admin_bar">
+</%block>
+
+<%block name="content">
+	
+	<h3>Edit Organization:</h3>
+	<form method="POST">
+		<table>
+			${ form }
+		</table>
+		<button class="btn btn-success" type="submit">Save</button>
+		<a class="btn btn-danger" href="/homepage/organizations.delete/${ organization.photographablething_ptr_id }">Delete Organization</a>
+		<a class="btn btn-default" href="/homepage/organizations/">Cancel</a>
+	</form>	
+</%block>

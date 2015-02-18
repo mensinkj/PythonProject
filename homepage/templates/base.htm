@@ -1,0 +1,86 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <head>
+    
+    <title><%block name="title"></%block> - Colonial Heritage Foundation</title>
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	## Latest compiled and minified CSS:
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">  
+	
+	## apple logo favicon
+	<link rel="icon" type="image/x-icon" href="/static/homepage/media/favicon.ico" />
+  
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+  
+  </head>
+  
+  <body onload="getCurrentPath()">
+  
+    <div id="header">
+    	<h1>Colonial Heritage Foundation</h1>
+    </div>
+    <%block name="admin_bar">
+    	## logged in users can see this bar.
+    	## this is really ugly. Fix it later
+		<%
+		if auth:
+		  context.write('<div id="admin_bar"><ul><li><a href="/users/">Users</a></li><li><a href="/products/">Products</a></li><li><a href="/items/">Items</a></li><li><a href="/organizations/">Organizations</a></li><li><a href="/events/">Events</a></li><li><a href="/areas/">Areas</a></li></ul></div> ')
+		%>
+		
+    </%block>
+  	<div class="container">
+  		<!-- use bootstrap grid -->	
+		<div class="row">
+			<!-- side bar -->
+			<div class="col-sm-2">
+				<%block name="sidebar">
+				<ul class="nav nav-pills nav-stacked top-padding">
+				  <li id="home"><a href="/">Home</a></li>
+				  <li id="about"><a href="/about">About</a></li>
+				  <li id="contact"><a href="/contact">Contact</a></li>
+				  <li id="terms"><a href="/terms">Terms<span class="badge pull-right">2</span></a></li>
+				</ul>
+				</%block>
+			</div>
+			<!-- Main Content -->
+			<div class="col-sm-8">
+				<%block name="content">
+				  Site content goes here in sub-templates.
+				</%block>
+			</div>
+			<!-- Right Login Sidebar -->
+			<%block name="rightbar">
+				<div class="col-sm-2">
+					<div class="login_info">
+						<%
+						if not auth:
+							context.write('<p>Volunteers, <br>Login Here:</p><a type="button" class="btn btn-primary" href="/login">Login</a>')
+						else:
+							context.write('<p>Logged in as ' + user.first_name + '</p><a type="button" class="btn btn-primary" href="/logout/">Logout</a>')
+						%>
+					</div>
+				</div>
+			</%block>
+		</div>
+	</div>  
+	
+	<div id="footer">
+		<p><span class="glyphicon glyphicon-copyright-mark"></span> Jameson Ricks 2015 - 
+		<span class="browser-time"><script>$('.browser-time').text(new Date());</script></span><p>
+	</div>
+  
+    ## render the JS with the same name as this page
+    ${ static_renderer.get_template_js(request, context)  }
+  
+ </body>
+  
+</html>

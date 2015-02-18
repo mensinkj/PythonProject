@@ -1,0 +1,31 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <head>
+    
+    <title><%block name="title"></%block> - Colonial Heritage Foundation</title>
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	## Latest compiled and minified CSS:
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">  
+	
+	## apple logo favicon
+	<link rel="icon" type="image/x-icon" href="/static/homepage/media/favicon.ico" />
+  
+    ## render the css with the same name as this page
+    ${ static_renderer.get_template_css(request, context)  }
+  
+  </head>
+  
+  <body onload="getCurrentPath()">
+	  <%block name="body">
+	  </%block>
+  </body>
+  
+</html>

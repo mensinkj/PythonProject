@@ -1,0 +1,25 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Organizations</%block>
+
+
+<%block name="content">
+	
+	<h3>Organizations</h3>
+		<a class="btn btn-success" href="/homepage/organizations.create/">Add Organization</a>
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Actions</th>
+		</tr>
+		% for organization in organizations:
+			<tr>
+				<td><p>${ organization.given_name }</p></td>
+				<td><p>${ organization.organization_type }</p></td>
+				<td><p><a href="/homepage/organizations.edit/${ organization.photographablething_ptr_id }/">Edit</a></p></td>
+			</tr>
+		% endfor
+	</table>
+	
+</%block>

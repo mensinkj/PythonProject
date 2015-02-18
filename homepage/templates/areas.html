@@ -1,0 +1,26 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Areas</%block>
+
+<%block name="content">
+	
+	<h3>Areas</h3>
+	<a class="btn btn-success" href="/homepage/areas.create/">Add Area</a>
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Place #</th>
+			<th>Actions</th>
+		</tr>
+		% for area in areas:
+			<tr>
+				<td><p>${ area.name }</p></td>
+				<td><p>${ area.description }</p></td>
+				<td><p>${ area.place_number }</p></td>
+				<td><p><a href="/homepage/areas.edit/${ area.photographablething_ptr_id }/">Edit</a></p></td>
+			</tr>
+		% endfor
+	</table>
+	
+</%block>

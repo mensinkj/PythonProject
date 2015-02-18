@@ -1,0 +1,17 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Edit Area</%block>
+
+<%block name="content">
+	
+	<h3>Edit Area:</h3>
+	
+	<form method="POST">
+		<table>
+			${ form }
+		</table>
+		<button class="btn btn-success" type="submit">Save</button>
+		<a class="btn btn-danger" href="/homepage/areas.delete/${ area.photographablething_ptr_id }">Delete Event</a>
+		<a class="btn btn-default" href="/homepage/areas/">Cancel</a>
+	</form>	
+</%block>

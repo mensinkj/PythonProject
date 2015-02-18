@@ -1,0 +1,17 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Edit Item</%block>
+
+<%block name="content">
+	
+	<h3>Edit Product:</h3>
+	
+	<form method="POST">
+		<table>
+			${ form }
+		</table>
+		<button class="btn btn-success" type="submit">Save</button>
+		<a class="btn btn-danger" href="/homepage/items.delete/${ item.photographablething_ptr_id }">Delete Item</a>
+		<a class="btn btn-default" href="/homepage/items/">Cancel</a>
+	</form>	
+</%block>
