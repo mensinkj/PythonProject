@@ -23,9 +23,15 @@
 		<table>
 			${ form }
 		</table>
-		<p>*Leave password field blank if NOT changing the password</p>
+		<p><a href="/account/changepass/${ user.id }/">Change Password</a></p>
 		<button class="btn btn-success" type="submit">Save</button>
-		<a class="btn btn-danger" href="/homepage/users.delete/${ user.id }">Delete Account</a>
-		<a class="btn btn-default" href="/homepage/users/">Cancel</a>
+		
+		##TODO: Make it so you can't delete the current user and redirect to account page
+		%if current == False:
+			<a id="id_delete_user_btn" class="btn btn-danger" href="/homepage/users.delete/${ user.id }">Delete Account</a>
+			<a id="id_cancel_btn" class="btn btn-default" href="/homepage/users/">Cancel</a>
+		%else:
+			<a id="id_cancel_btn" class="btn btn-default" href="/account/">Cancel</a>		
+		%endif
 	</form>	
 </%block>

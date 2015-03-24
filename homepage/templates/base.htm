@@ -12,8 +12,11 @@
     <title><%block name="title"></%block> - Colonial Heritage Foundation</title>
     ## add any site-wide scripts or CSS here; for example, jquery:
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	## Latest compiled and minified CSS:
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">  
+    <script src="${ STATIC_URL }homepage/media/jquery.form.js"></script>
+    <script src="${ STATIC_URL }homepage/media/jquery.loadmodal.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    ## Latest compiled and minified CSS:
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	
 	## apple logo favicon
 	<link rel="icon" type="image/x-icon" href="/static/homepage/media/favicon.ico" />
@@ -31,13 +34,37 @@
     <%block name="admin_bar">
     	## logged in users can see this bar.
     	## this is really ugly. Fix it later
-		<%
-		if auth:
-		  context.write('<div id="admin_bar"><ul><li><a href="/users/">Users</a></li><li><a href="/products/">Products</a></li><li><a href="/items/">Items</a></li><li><a href="/organizations/">Organizations</a></li><li><a href="/events/">Events</a></li><li><a href="/areas/">Areas</a></li></ul></div> ')
-		%>
+		%if auth:
+		  <div id="admin_bar">
+		  	<ul>
+		  		<li><a href="/users/">Users</a></li>
+		  		<li><a href="/products/">Products</a></li>
+		  		<li><a href="/items/">Items</a></li>
+		  		<li><a href="/organizations/">Organizations</a></li>
+		  		<li><a href="/events/">Events</a></li>
+		  		<li><a href="/areas/">Areas</a></li>
+		  		<li><a href="/overdue/">Overdue Items</a></li>
+			</ul>
+		</div>
+		%endif
 		
     </%block>
+    
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">[X]</button>
+				<h4 class="modal-title" id="myModalLabel">Login</h4>
+				</div>
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>    
+    
   	<div class="container">
+  	
   		<!-- use bootstrap grid -->	
 		<div class="row">
 			<!-- side bar -->
@@ -45,9 +72,13 @@
 				<%block name="sidebar">
 				<ul class="nav nav-pills nav-stacked top-padding">
 				  <li id="home"><a href="/">Home</a></li>
+				  <li id="product"><a href="/catalog">Products</a></li>
 				  <li id="about"><a href="/about">About</a></li>
 				  <li id="contact"><a href="/contact">Contact</a></li>
 				  <li id="terms"><a href="/terms">Terms<span class="badge pull-right">2</span></a></li>
+				  %if auth:
+				  		<li id="account"><a href="/account/">My Account</a></li>
+				  %endif				  		
 				</ul>
 				</%block>
 			</div>
@@ -61,12 +92,17 @@
 			<%block name="rightbar">
 				<div class="col-sm-2">
 					<div class="login_info">
-						<%
-						if not auth:
-							context.write('<p>Volunteers, <br>Login Here:</p><a type="button" class="btn btn-primary" href="/login">Login</a>')
-						else:
-							context.write('<p>Logged in as ' + user.first_name + '</p><a type="button" class="btn btn-primary" href="/logout/">Logout</a>')
-						%>
+						%if not auth:
+							<p>Login Here:</p>
+							<button id="show_login_dialog" class="btn btn-primary">Login</button>
+							<!--<a href="/account/login/" class="btn btn-primary">Login</a>-->
+							<p></p>
+							<p>Need an account?<br>
+							Sign up <a href="/account/signup/">here</a>!</p>
+						%else:
+							<p>Logged in as ${ user.first_name }</p>
+							<a type="button" class="btn btn-primary" href="/logout/">Logout</a>
+						%endif
 					</div>
 				</div>
 			</%block>

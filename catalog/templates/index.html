@@ -1,0 +1,31 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Products</%block>
+
+<%block name="content">
+	<div id="search">
+		<div class="float-left"><h4>Search: </h4></div>
+		<div class="float-left"><input id="search_text" class="form-control" type="text" size="30"></div>
+		<div><button class="btn btn-lg btn-default glyphicon glyphicon-search h-margin" /></div>
+	</div> 
+	<div id="products">
+	<h3>Products</h3>
+		% for product in products:
+			<div class="item_container">
+				% for photo in photos:
+					%if photo.object_pictured == product:
+						<img src="${ photo.image }" />
+					%endif
+				%endfor
+				<div class="text-muted text-center">
+					${ product.name }<br>
+					$${ product.current_price }
+				</div>
+				<div class="buy_now">
+					<a href="/catalog/details/${ product.photographablething_ptr_id }" class="btn btn-warning">View Item</a>
+				</div>
+			</div>
+		% endfor
+	</div>
+
+</%block>

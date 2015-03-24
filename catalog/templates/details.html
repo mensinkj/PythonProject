@@ -1,0 +1,21 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Products - ${ product.name }</%block>
+
+<%block name="content">
+	<div id="main_box">
+		<div id="info_box">
+			<h3>Product: ${ product.name }</h3>
+			<p><strong>Description:</strong> ${ product.description }</p>
+			<p><strong>Category:</strong> ${ product.category }</p>
+			<p><strong>Price:</strong> $<span id="price">${ product.current_price }</span></p>
+			<p>${ form }</p>
+			<a href="#" id="buy_now_btn" class="btn btn-warning">Buy Now</a>
+			<span hidden="hidden" id="orig_price" >${ product.current_price }</span>
+			<span hidden="hidden" id="item_id" >${ product.photographablething_ptr_id }</span>
+		</div>
+		<div id="photo">
+			<img src="${ photo.image }" />
+		</div>
+	</div>
+</%block>

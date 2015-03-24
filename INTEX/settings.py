@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_mako_plus.controller',
     'homepage',
+    'account',
+    'catalog',
 )
 
 MIDDLEWARE_CLASSES = (

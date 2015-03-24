@@ -1,0 +1,23 @@
+<%inherit file="base_ajax.htm" />
+
+<%block name="content">
+	%if productCount < 1:
+		<h2>No results found.</h2>
+	%else:
+		<h3>Products</h3>
+		% for product in products:
+			<div class="item_container">
+				<img src="http://img3.wikia.nocookie.net/__cb20120620205705/harrypotter/images/5/57/Harry-potter-costume1.jpg" />
+				<div class="text-muted text-center">
+					${ product.name }<br>
+					$${ product.current_price }
+				</div>
+				<div class="buy_now">
+					<a href="/catalog/details/${ product.photographablething_ptr_id }" class="btn btn-warning">View Item</a>
+				</div>
+			</div>
+		% endfor
+	</div>
+	%endif
+
+</%block>

@@ -1,0 +1,22 @@
+#photo: {
+	position: relative;
+	max-width: 34%;
+	min-width: 100px;
+	float: right;
+	padding-top 20px;
+	margin-top:20px;
+}
+
+#photo img {
+	max-width: 60%;
+	padding-top:25px;
+}
+
+#info_box {
+	float: left;
+	width: 30%;
+}
+
+#main_box {
+	width:100%;
+}

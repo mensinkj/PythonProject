@@ -43,7 +43,7 @@ def process_request(request):
 ##### Edits a single organization  
 
 @view_function
-@permission_required('homepage.change_organization')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def edit(request):
 	params = {}
@@ -102,7 +102,7 @@ class OrganizationEditForm(forms.Form):
 ##### Creates a new organization 
 
 @view_function
-@permission_required('homepage.add_organization')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def create(request):
 	organization1 = hmod.Organization()
@@ -119,7 +119,7 @@ def create(request):
 ##### Deletes a organization
 
 @view_function
-@permission_required('homepage.delete_organization')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def delete(request):
 	try:

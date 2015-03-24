@@ -1,0 +1,19 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Overdue Items</%block>
+
+<%block name="admin_bar">
+</%block>
+
+<%block name="content">
+	
+	<h3>Overdue Items:</h3>
+		<table>
+			%for rental in overdue_rentals:
+				<tr>
+					<td>Rental: ${ rental.rental_id } </td>
+					<td>Due Date: ${ rental.due_date }</td>
+				</tr>
+			%endfor
+		</table>
+</%block>

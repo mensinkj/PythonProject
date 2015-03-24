@@ -76,11 +76,11 @@ class Phone(models.Model):
 class Rental(models.Model):
 	rental_id = models.AutoField(primary_key=True)
 	customer = models.ForeignKey('Organization', null=True, related_name='+')
-	contact = models.ForeignKey('Person' , null=False, related_name='+')
-	issuer = models.ForeignKey('Agent' , null=False, related_name='+')
+	contact = models.ForeignKey('Person' , null=True, related_name='+') ## null should be set to False, but for dev this works
+	issuer = models.ForeignKey('Agent' , null=True, related_name='+') ## null should be set to False, but for dev this works
 	rental_time = models.DateTimeField()
 	due_date = models.DateTimeField()
-	discount_percent = models.IntegerField(max_length=2)
+	discount_percent = models.IntegerField(null=True, max_length=2)
 
 class Product(PhotographableThing):
 	owner = models.ForeignKey('LegalEntity', null=True)
@@ -186,8 +186,9 @@ class RentedItem(models.Model):
 
 class Photograph(models.Model):
 	photograph_id = models.AutoField(primary_key=True)
-	photographer_id = models.ForeignKey('Person' , null=False)
-	date_taken = models.DateTimeField()
-	place_taken = models.TextField(max_length=50)
-	image = models.FilePathField()
+	photographer_id = models.ForeignKey('Person' , null=True)
+	object_pictured = models.ForeignKey('PhotographableThing', null = False, related_name="+")
+	date_taken = models.DateTimeField(null=True)
+	place_taken = models.TextField(max_length=50, null=True)
+	image = models.TextField(null=True)
 

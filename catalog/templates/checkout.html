@@ -1,0 +1,13 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Products</%block>
+
+<%block name="content">
+	<h3>Checkout:</h3>
+	<form method="POST">
+		<table>
+			${ form }
+		</table>
+		<input type= "Submit" class="btn btn-warning" value="Process Order"/>
+	</form>
+</%block>

@@ -44,7 +44,7 @@ def process_request(request):
 ##### Edits a single item  
 
 @view_function
-@permission_required('homepage.change_item')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def edit(request):
 	params = {}
@@ -106,7 +106,7 @@ class ItemEditForm(forms.Form):
 ##### Creates a new item 
 
 @view_function
-@permission_required('homepage.add_item')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def create(request):
 	item1 = hmod.Item()
@@ -124,7 +124,7 @@ def create(request):
 ##### Deletes a item
 
 @view_function
-@permission_required('homepage.delete_item')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def delete(request):
 	try:

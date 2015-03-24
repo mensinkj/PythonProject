@@ -20,21 +20,38 @@ def process_request(request):
 	if request.user.is_authenticated():
 		return HttpResponseRedirect('/homepage/')
 	
-	# create form
+	form = LoginForm()
+	if request.method == 'POST':
+		print('>>>>>>>>>>> POST')
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			print('>>>>>>>>>>> VALID')
+			#user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+			#login(request, user)
+			HttpResponseRedirect('/homepage/')
+	
+	params['form'] = form
+	params['auth'] = request.user.is_authenticated()
+		
+	return templater.render_to_response(request, 'login.html', params) 
+		
+@view_function
+def loginform(request):
+	params = {}
+	
 	form = LoginForm()
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
 			user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
 			login(request, user)
-			
-			return HttpResponseRedirect('/homepage/')
-			
+			HttpResponseRedirect('/')
+	
 	params['form'] = form
-	params['auth'] = request.user.is_authenticated()
-		
-	return templater.render_to_response(request, 'login.html', params) 
-
+	
+	return templater.render_to_response(request, 'login.loginform.html', params)
+	
+	
 # user edit form
 class LoginForm(forms.Form):
 	username = forms.CharField(required=True)
@@ -47,11 +64,3 @@ class LoginForm(forms.Form):
 			raise forms.ValidationError('Please enter a username that is at least 4 characters.')
 			
 		return self.cleaned_data['username']
-	
-	## check for actual user
-	def clean(self):
-		user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
-		if user == None:
-			raise forms.ValidationError('Sorry, the username and/or password you entered is incorrect.')
-		print('Authenticated User!')		
-		return self.cleaned_data

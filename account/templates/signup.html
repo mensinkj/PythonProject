@@ -1,0 +1,19 @@
+<%inherit file="base.htm" />
+
+<%block name="title">New User Registration</%block>
+
+<%block name="content">
+	
+	<h3>New User Registration:</h3>
+	<div id="createUserForm_container">
+		<form id="createUserForm" method="POST" action="/account/signup.create_user/">
+			<table>
+				<tr><th></th><td><span id="id_username_message"></span></td></tr>
+				${ form }
+				<tr><th></th><td><span id="id_password_message"></span></td></tr>
+			</table>
+			<button class="btn btn-success" type="submit">Submit</button>
+			<a class="btn btn-default" href="/">Cancel</a>
+		</form>	
+	</div>
+</%block>

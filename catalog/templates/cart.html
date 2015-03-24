@@ -1,0 +1,20 @@
+<%inherit file="base_ajax.htm" />
+
+<%block name="content">
+	<table class="table">
+		%for product in cart:
+			<tr>
+				<td><a href="/catalog/cart.delete/${ product.photographablething_ptr_id }/" class="btn btn-danger">Remove</a></td>
+				<td>${ product.name }</td>
+				<td>Quantity: ${ session_cart[str(product.photographablething_ptr_id)] }
+                    
+					
+				</td>
+				
+				
+			</tr>
+		%endfor
+	</table>
+	<br><br>
+	<p><a href="/catalog/checkout/" class="btn btn-warning">Checkout</a></p>
+</%block>

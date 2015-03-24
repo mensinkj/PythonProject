@@ -44,7 +44,7 @@ def process_request(request):
 ##### Edits a single event  
 
 @view_function
-@permission_required('homepage.change_event')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def edit(request):
 	params = {}
@@ -107,7 +107,7 @@ class EventEditForm(forms.Form):
 ##### Creates a new event 
 
 @view_function
-@permission_required('homepage.add_event')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def create(request):
 	event1 = hmod.Event()
@@ -125,7 +125,7 @@ def create(request):
 ##### Deletes a event
 
 @view_function
-@permission_required('homepage.delete_event')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def delete(request):
 	try:

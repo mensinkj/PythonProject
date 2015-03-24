@@ -43,7 +43,7 @@ def process_request(request):
 ##### Edits a single area  
 
 @view_function
-@permission_required('homepage.change_area')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def edit(request):
 	params = {}
@@ -102,7 +102,7 @@ class AreaEditForm(forms.Form):
 ##### Creates a new area 
 
 @view_function
-@permission_required('homepage.add_area')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def create(request):
 	area1 = hmod.Area()
@@ -119,7 +119,7 @@ def create(request):
 ##### Deletes a area
 
 @view_function
-@permission_required('homepage.delete_area')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def delete(request):
 	try:

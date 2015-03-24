@@ -1,0 +1,13 @@
+<%inherit file="base_ajax.htm" />
+
+<%block name="content">
+	<form id="createUserForm" method="POST" action="/account/signup.create_user/">
+		<table>
+			<tr><th></th><td><span id="id_username_message"></span></td></tr>
+			${ form }
+			<tr><th></th><td><span id="id_password_message"></span></td></tr>
+		</table>
+		<button class="btn btn-success" type="submit">Submit</button>
+		<a class="btn btn-default" href="/">Cancel</a>
+	</form>	
+</%block>

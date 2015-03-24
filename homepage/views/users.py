@@ -21,7 +21,7 @@ def process_request(request):
 
 	params = {
 		# display current time and set current page
-		'now': datetime.now().strftime(request.urlparams[0] if request.urlparams[0] else '%H:%M'),
+		'now': datetime.now().strftime('%H:%M'),
   		'currentPage': "users",
 	}
 	
@@ -31,6 +31,7 @@ def process_request(request):
 	# pass variable to html and sort
 	params['users'] = users
 	params['auth'] = request.user.is_authenticated()
+	
 	
 	print(users)
 	
@@ -49,13 +50,20 @@ def process_request(request):
 ##### Edits a single user  
 
 @view_function
-@permission_required('homepage.change_user')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def edit(request):
 	params = {}
 	
+	if request.urlparams[1] == "current":
+		params['current'] = True
+	else:
+		params['current'] = False
+	
 	#debug
-	print("Editing User ID: " + request.urlparams[0])
+	print(">>>>>>>>> Editing User ID: " + request.urlparams[0])
+	if (request.urlparams[1] == "current"):
+		print(">>>>>>>>> Editing current user.")
 	
 	#get the selected user
 	try:
@@ -80,13 +88,12 @@ def edit(request):
 			user.first_name = form.cleaned_data['first_name']
 			user.last_name = form.cleaned_data['last_name']
 			user.email = form.cleaned_data['email']
-			#change the password if it's not empty
-			if len(form.cleaned_data['password']) > 0:
-				print('Changing the user''s password!')
-				user.set_password(form.cleaned_data['password'])
 			user.save()
-			return HttpResponseRedirect('/homepage/users/')
-			
+			if params['current'] == True:
+				return HttpResponseRedirect('/account/')
+			else:
+				return HttpResponseRedirect('/homepage/users/')
+	
 	params['form'] = form
 	params['user'] = user
 		
@@ -98,7 +105,6 @@ class UserEditForm(forms.Form):
 	first_name = forms.CharField(required=True, min_length=1, max_length=100)
 	last_name = forms.CharField(required=True, min_length=1, max_length=100)
 	email = forms.EmailField(required=True, min_length=1, max_length=100)
-	password = forms.CharField(required=False, label="Password", widget=forms.PasswordInput)
 	
 	def clean_username(self):
 		#check to see if username already exists
@@ -116,7 +122,7 @@ class UserEditForm(forms.Form):
 ##### Creates a new user 
 
 @view_function
-@permission_required('homepage.add_user')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def create(request):
 	user1 = hmod.User()
@@ -134,7 +140,7 @@ def create(request):
 ##### Deletes a user 
 
 @view_function
-@permission_required('homepage.delete_user')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def delete(request):
 	try:

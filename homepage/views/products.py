@@ -43,7 +43,7 @@ def process_request(request):
 ##### Edits a single product  
 
 @view_function
-@permission_required('homepage.change_product')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def edit(request):
 	params = {}
@@ -105,7 +105,7 @@ class ProductEditForm(forms.Form):
 ##### Creates a new product 
 
 @view_function
-@permission_required('homepage.add_product')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def create(request):
 	product1 = hmod.Product()
@@ -123,7 +123,7 @@ def create(request):
 ##### Deletes a product
 
 @view_function
-@permission_required('homepage.delete_product')
+@permission_required('homepage.manager_rights')
 @login_required(login_url='/homepage/login/')
 def delete(request):
 	try:

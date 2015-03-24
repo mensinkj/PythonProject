@@ -1,0 +1,19 @@
+<%inherit file="base.htm" />
+
+<%block name="title">Account - Change Password</%block>
+
+<%block name="content">
+	<h3>Change Password</h3>
+	<form method="POST">
+		<table>
+			${ form }
+		</table>
+		<button class="btn btn-success" type="submit">Save</button>
+		
+		%if current == True:
+			<a id="id_cancel_btn" class="btn btn-default" href="/account/">Cancel</a>
+		%else:
+			<a id="id_cancel_btn" class="btn btn-default" href="/users.edit/${ userid }/">Cancel</a>
+		%endif
+	</form>
+</%block>
